@@ -6,6 +6,18 @@
 
 @Model
 <form action="/idea/add" method="post">
+    @if (@Model.errorList != null)
+    {
+    <p>
+    <ul>
+    @foreach(string error in errorList)
+    {
+        <li>@error</li>
+    }
+    </ul>
+    </p>
+    }
+
     <p>
         <label for="title">Title:</label>
         <input type="text" name="title" placeholder="title">
