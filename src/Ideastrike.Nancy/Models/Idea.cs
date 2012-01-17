@@ -15,5 +15,26 @@ namespace Ideastrike.Nancy.Models
         public User Author { get; set; }
         public virtual ICollection<Activity> Activities { get; set; }
         //public virtual ICollection<VotesToUser> Votes { get; set; }
+        
+        public bool isValid()
+        {
+            if (string.IsNullOrWhiteSpace(Title)) return false;
+            if (Author == null) return false;
+            return true;
+        }
+
+        public List<string> generateErrorList()
+        {
+            List<string> errorList = new List<string>();
+            if (string.IsNullOrWhiteSpace(Title))
+            {
+                errorList.Add("Title field is mandatory");
+            }
+            if (Author == null)
+            {
+                errorList.Add("Author field is mandatory");
+            }
+            return errorList;
+        }
     }
 }

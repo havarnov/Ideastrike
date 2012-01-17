@@ -29,6 +29,30 @@ namespace Ideastrike.Nancy.Modules
                     return string.Format("Deleted Item {0}", id);
                 }
             };
+
+                        Post["/idea/add"] = parameters =>
+            {
+                using (var db = new IdeastrikeContext())
+                {
+                    var author = Request.Form.author;
+                    var title = Request.Form.title;
+                    var desc = Request.Form.description;
+                   
+                    var newIdea = db.Ideas.Add(new Idea {Title = title, Author = author, Description = desc });
+                    if(newIdea.isValid())
+                    {
+                        // store the new idea and redirect to the new idea
+                        db.SaveChanges();
+                        return Response.AsRedirect(string.Format("/idea/{0}/", newIdea.Id));
+                    }
+                    else
+                    {
+                        // return to form with errors
+                        List<string> errorList = newIdea.generateErrorList();
+                        return View["Home/Add", new { errorList, author, title, desc }];
+                    }
+                }
+            };
         }
     }
 }

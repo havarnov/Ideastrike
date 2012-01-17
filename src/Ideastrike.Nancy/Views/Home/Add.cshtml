@@ -1,0 +1,23 @@
+@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase
+
+@{
+    Layout = "Views/Shared/Layout.cshtml";
+}
+
+@Model
+<form action="/idea/add" method="post">
+    <p>
+        <label for="title">Title:</label>
+        <input type="text" name="title" placeholder="title">
+    </p>
+
+    <p>
+        <label for="author">Author:</label>
+        <input type="text" name="author" placeholder="author">
+    </p>
+
+    <p>
+        <label for="desc">Description:</label>
+        <textarea name="desc" cols="40" rows="6"></textarea>
+    </p>
+</form>
